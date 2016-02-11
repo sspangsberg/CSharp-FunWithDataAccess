@@ -1,0 +1,388 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 
+	=================================================================
+	Site design and TYPO3 integration by IdeFA Gruppen - www.idefa.dk
+	=================================================================
+
+	This website is powered by TYPO3 - inspiring people to share!
+	TYPO3 is a free open source Content Management Framework initially created by Kasper Skaarhoj and licensed under GNU/GPL.
+	TYPO3 is copyright 1998-2015 of Kasper Skaarhoj. Extensions are copyright of their respective owners.
+	Information and contribution at http://typo3.org/
+-->
+
+<base href="http://www.aspit.dk/" />
+<link rel="shortcut icon" href="http://www.aspit.dk/fileadmin/sitegraphics/favicon.ico" type="image/x-icon; charset=binary" />
+<link rel="icon" href="http://www.aspit.dk/fileadmin/sitegraphics/favicon.ico" type="image/x-icon; charset=binary" />
+
+<meta name="generator" content="TYPO3 CMS" />
+
+
+<link rel="stylesheet" type="text/css" href="typo3temp/stylesheet_12c8ffc134.css?1445869103" media="all" />
+
+
+
+<script src="typo3temp/javascript_dd82474708.js?1445868303" type="text/javascript"></script>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="imagetoolbar" content="false" />
+<link rel="stylesheet" href="fileadmin/template/main/style.css" type="text/css" />
+
+
+
+<link rel="stylesheet" href="fileadmin/template/main/custom.css" type="text/css" /><script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+  google.load('jquery', '1');
+</script><script type="text/javascript">
+jQuery.noConflict();
+
+(function($) {
+  $.fn.slideshow_fade = function(options) {
+    options = $.extend({
+      timeout: 6000,
+      speed: 1000,
+      start: 'first', // choices: "first" or "random"
+      order: 'ordered' // choices: "ordered" or "random"
+    }, options);
+    
+    return this.each(function() {
+      var s = $(this);
+      if (s.children().length > 1) {
+        var n = (options.start == 'random') ? Math.round(Math.random()*(s.children().length-1)) : 0;
+        s.children().eq(n).appendTo(s).show();
+        $(window).load(function() {
+          var fade_int = $(window).load(function() {
+            fade_controls_int = setInterval(function() {
+              var n = (options.order == 'random') ? Math.round(Math.random()*(s.children(':not(:last)').length-1)) : 0;
+              s.children().eq(n).css({opacity: '0'}).appendTo(s).animate({opacity: '1'}, options.speed);
+            }, options.timeout);
+          });
+        });
+      } else {
+      	s.children().eq(0).appendTo(s).show();
+      }
+    });
+  };
+  
+  $.fn.slideshow_fade_controls = function(options) {
+    options = $.extend({
+      autoplay: true, // choices: true or false
+      controls: false, // choices: true or false
+      timeout: 6000,
+      speed: 1000,
+      start: 'first', // choices: "first" or "random"
+      order: 'ordered' // choices: "ordered" or "random"
+    }, options);
+    
+    return this.each(function() {
+      var s = $(this);
+      
+      if (s.children().length > 1) {
+        var fade_controls_int = '';
+        var n = (options.start == 'random') ? Math.round(Math.random()*(s.children().length-1)) : 0;
+        s.children().eq(n).addClass('current').show();
+        if (options.autoplay == true) {
+          $(window).load(function() {
+            fade_controls_int = setInterval(function() {
+              if (n == (s.children().length-1)) {
+                n = 0;
+              } else {
+                n = (options.order == 'random') ? Math.round(Math.random()*(s.children(':not(:last)').length-1)) : (n+1);
+              }
+              s.children().eq(n).hide().addClass('current').fadeIn(options.speed, function() {
+                $(this).removeClass('current').siblings().hide();
+              });
+              s.parent().find('.slideshow-nav ul').children().eq(n).addClass('current').siblings().removeClass('current');
+            }, options.timeout);
+          });
+        }
+        if (options.autoplay == false || options.controls == true) {
+          s.parent().append('<nav class="slideshow-nav"><ul></ul></nav>');
+          s.parent().find('.slideshow-nav').prepend('<div class="left"><a href="#">Prev</a></div>');
+          for (i = 0; i < s.children().length; i++) {
+            s.parent().find('.slideshow-nav ul').append('<li class="item-' + (i+1) + '"><a href="#" title="' + (i+1) + '">' + (i+1) + '</a></li>');
+            s.parent().find('.slideshow-nav li:first-child').addClass('current');
+          }
+          s.parent().find('.slideshow-nav').append('<div class="right"><a href="#">Next</a></div>');
+          
+          s.parent().find('.slideshow-nav li').click(function (e) {
+            if (!s.is(':animated') && !$(this).hasClass('current')) {
+              clearInterval(fade_controls_int);
+              n = $(this).index();
+              s.children().eq(n).hide().addClass('current').fadeIn(options.speed, function() {
+                $(this).removeClass('current').siblings().hide();
+              });
+              s.parent().find('.slideshow-nav ul').children().eq(n).addClass('current').siblings().removeClass('current');
+            }
+            e.preventDefault();
+          });
+          
+          s.parent().find('.slideshow-nav .right').click(function (e) {
+            if (!s.is(':animated')) {
+              clearInterval(fade_controls_int);
+              n = ($('.slideshow-nav li.current').index()+1 == s.children().length) ? 0 : $('.slideshow-nav li.current').index()+1;
+              s.children().eq(n).hide().addClass('current').fadeIn(options.speed, function() {
+                $(this).removeClass('current').siblings().hide();
+              });
+              s.parent().find('.slideshow-nav ul').children().eq(n).addClass('current').siblings().removeClass('current');
+            }
+            e.preventDefault();
+          });
+          s.parent().find('.slideshow-nav .left').click(function (e) {
+            if (!s.is(':animated')) {
+              clearInterval(fade_controls_int);
+              n = ($('.slideshow-nav li.current').index()+1 == 0) ? s.children().length : $('.slideshow-nav li.current').index()-1;
+              s.children().eq(n).hide().addClass('current').fadeIn(options.speed, function() {
+                $(this).removeClass('current').siblings().hide();
+              });
+              s.parent().find('.slideshow-nav ul').children().eq(n).addClass('current').siblings().removeClass('current');
+            }
+            e.preventDefault();
+          });
+        }
+      } else {
+        s.children().eq(0).show();
+      }
+    });
+  };
+  
+  $.fn.slideshow_scroll = function(options) {
+    options = $.extend({
+      autoplay: true, // choices: true or false
+      controls: false, // choices: true or false
+      timeout: 6000,
+      speed: 2000,
+      effect: '' // choices: "easein", "easeout", "linear" and other easing effects - http://jqueryui.com/demos/effect/easing.html
+    }, options);
+    
+    return this.each(function() {
+      var e = $(this);
+      
+      var totalWidth = 0;
+      e.children().each(function() {
+        totalWidth += $(this).outerWidth();
+      });
+      e.css({width: totalWidth});
+      
+      if (e.children().length > 1) {
+        var scroller_int = '';
+        
+        if (options.autoplay == true) {
+          $(window).load(function() {
+            scroller_int = setInterval(function() {
+              e.animate({
+                left: '-=' + e.children().eq(0).outerWidth()
+              }, options.speed, options.effect, function() {
+                e.children().eq(0).appendTo(e);
+                e.css({'left': '0px'});
+              });
+            }, options.timeout);
+          });
+        }
+        if (options.autoplay == false || options.controls == true) {
+          e.parent().append('<ul class="slideshow-nav"><li class="left"><a href="#">Prev</a></li><li class="right"><a href="#">Next</a></li></ul>');
+          e.parent().find('.slideshow-nav .left').click(function () {
+            clearInterval(scroller_int);
+            e.children().eq(-1).prependTo(e);
+            e.css({ left: '-=' + e.children().eq(0).outerWidth() });
+            e.animate({
+              left: '+=' + e.children().eq(0).outerWidth()
+            }, options.speed, options.effect, function() {
+              e.css({'left': '0px'});
+            });
+            return false;
+          });
+          e.parent().find('.slideshow-nav .right').click(function () {
+            clearInterval(scroller_int);
+            e.animate({
+              left: '-=' + e.children().eq(0).outerWidth()
+            }, options.speed, options.effect, function() {
+              e.children().eq(0).appendTo(e);
+              e.css({'left': '0px'});
+            });
+            return false;
+          });
+        }
+      }
+    });
+  };
+  $.fn.slideshow_scroll_vertical = function(options) {
+    options = $.extend({
+      timeout: 6000,
+      speed: 500,
+      effect: '' // choices: "easein", "easeout", "linear" and other easing effects - http://jqueryui.com/demos/effect/easing.html
+    }, options);
+    
+    return this.each(function() {
+      var s = $(this);
+      
+      var totalHeight = 0;
+      s.children().each(function() {
+        totalHeight += $(this).outerHeight();
+      });
+      s.css({height: totalHeight});
+      
+      if (s.children().length > 1) {
+        var scroll_vertical_int = '';
+        $(window).load(function() {
+          scroller_vertical_int = setInterval(function() {
+            s.animate({
+              top: '-=' + s.children().eq(0).outerHeight()
+            }, options.speed, options.effect, function() {
+              s.css({top: '0'}).children().eq(0).appendTo(s);
+            });
+          }, options.timeout);
+        });
+      }
+    });
+  };
+  
+  $(document).ready(function(){
+    $('body').removeClass('no-js');
+    if($.browser.msie) {
+      $('body').addClass('ie');
+      var ie_version = 'ie' + $.browser.version.slice(0,1);
+      $('body').addClass(ie_version);
+      
+      $('#mainmenu li').hover(function () {
+        $(this).addClass('over');
+      }, function () {
+        $(this).removeClass('over');
+      });
+    }
+    if($.browser.safari || $.browser.webkit) {
+      $('body').addClass('webkit');
+    }
+    
+    $('iframe').each(function() {
+      var iframe_url = $(this).attr('src').substr(7,11);
+      if(iframe_url != 'maps.google') {
+        var url = $(this).attr("src");
+        if (url.toLowerCase().indexOf("?") != -1) {
+	  $(this).attr("src",url+"&wmode=transparent");
+	} else {
+	  $(this).attr("src",url+"?wmode=transparent");
+	}
+        $(this).attr("wmode","Opaque");
+      }
+    });
+    
+    $('#colMargin .slideshow').wrapAll('<div class="slideshow-wrap" />');
+    $('#colMargin .slideshow-wrap').slideshow_scroll({ controls: true, timeout: 5500 });
+    //$('#colMargin .slideshow .csc-textpic-imagewrap').slideshow_fade({ timeout: 4000, start: 'random', order: 'random' });
+    
+    $('#colMargin .slideshow .csc-textpic-imagewrap').slideshow_fade_controls({ controls: true });
+    
+    $('#boxes-left .box').wrapAll('<div class="box-wrap" />');
+    $('#boxes-left .box-wrap').slideshow_scroll_vertical({ timeout: 4500 });
+    $('#boxes-normal .box').wrapAll('<div class="box-wrap" />');
+    $('#boxes-normal .box-wrap').slideshow_scroll_vertical({ timeout: 5000 });
+    $('#boxes-right .box').wrapAll('<div class="box-wrap" />');
+    $('#boxes-right .box-wrap').slideshow_scroll_vertical({ timeout: 5500 });
+    
+    if ($('#colNormal').height() > $('#submenu').height()){
+    	$('#submenu').height($('#colNormal').height()+18);
+    } else { 
+    	$('#colNormal').height($('#submenu').height()-18);
+    }
+  });
+})(jQuery);
+</script>
+	<title>AspIT DK</title>
+	<meta name="title" content="AspIT DK" />
+	<meta name="date" content="2015-06-01" />
+	<meta name="robots" content="NOODP" />
+<meta name="robots" content="ALL" />
+<meta name="copyright" content="AspIT. All rights reserved" />
+<meta http-equiv="content-language" content="dk" />
+<meta http-equiv="reply-to" content="info@aspit.dk" />
+<meta name="author" content="AspIT" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />  <link rel="stylesheet" href="fileadmin/template/main/slimbox_alt.css" type="text/css" media="screen" /><meta property="og:image" content="http://www.aspit.dk/" />
+</head>
+<body class="no-js">
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '', // App ID
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+
+    // Additional initialization code here
+  };
+
+  // Load the SDK Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/da_DK/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+   
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/da_DK/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+<div id="wrap"><!--###wrap### begin -->
+	<div id="globalnav" class="clearfix"><!--###globalnav### begin -->
+		<div id="logo"><div id="c951" class="csc-default" ><div class="csc-textpic csc-textpic-center csc-textpic-above"><div class="csc-textpic-imagewrap csc-textpic-single-image" style="width:107px;"><a href="http://aspit.dk" target="_self"><img src="fileadmin/_migrated/pics/logo_02.jpg" width="107" height="98"   alt=""  border="0" /></a></div></div><div class="csc-textpic-clear"><!-- --></div></div></div>
+		<div id="logo2"><!--###logo2### begin -->&nbsp;<!--###logo2### end --></div>
+		<div id="searchform"><form action="/index.php?id=17" method="post"><input type="text" name="tx_indexedsearch[sword]" size="14" placeholder="Leder du efter noget?" value="" /><input type="submit" value="S&Oslash;G" class="button" /><input type="hidden" name="tx_indexedsearch[_sections]" value="0" /><input type="hidden" name="tx_indexedsearch[pointer]" value="0" /><input type="hidden" name="tx_indexedsearch[ext]" value="0" /><input type="hidden" name="tx_indexedsearch[lang]" value="0" /></form></div>
+		<ul id="topmenu" class="clearfix"><li class="first"><a href="om-aspit/kontakt-aspit/" title="Kontakt AspIT">Kontakt AspIT</a></li><li><a href="nyhedsbreve/" title="Nyhedsbreve">Nyhedsbreve</a></li><li><a href="job/" title="Job">Job</a></li><li><a href="om-aspit/organisation/kvalitet/" title="Kvalitet">Kvalitet</a></li><li class="last"><a href="sitemap/" title="Sitemap">Sitemap</a></li></ul>
+		<div id="sprog"><!--###sprog### begin --><a href="http://www.aspit.dk/"><img src="fileadmin/template/main/images/da.gif" /></a><a href="http://www.aspit.co.uk/"><img src="fileadmin/template/main/images/en.gif" /></a><a href="http://www.aspit.de/"><img src="fileadmin/template/main/images/de.gif" /></a><!--###sprog### end --></div>
+	<!--###globalnav### end --></div>
+	<ul id="mainmenu" class="clearfix"><li class="first"><a href="om-aspit/" title="Om AspIT">Om AspIT</a></li><li><a href="uddannelsen/" title="Uddannelsen">Uddannelsen</a></li><li><a href="afdelinger/" title="Afdelinger">Afdelinger</a></li><li><a href="referencer/" title="Referencer">Referencer</a></li><li class="last"><a href="kontakt-aspit/" title="Kontakt AspIT">Kontakt AspIT</a></li></ul>
+	<!-- TYPO3SEARCH_begin -->
+	<div id="main" class="clearfix">
+	<div id="splash-text"></div>
+	<div id="colMargin" class="front"><div class="slideshow"><div class="csc-textpic csc-textpic-center csc-textpic-above"><div class="csc-textpic-imagewrap" style="width:970px;"><div class="csc-textpic-imagerow" style="width:970px;"><ul><li class="csc-textpic-image csc-textpic-firstcol csc-textpic-lastcol" style="width:970px;"><img src="fileadmin/_processed_/csm_eleverIlokale_03_93d16ca5f3.jpg" width="970" height="291"   alt=""  border="0" /></li></ul></div><div class="csc-textpic-imagerow" style="width:970px;"><ul><li class="csc-textpic-image csc-textpic-firstcol csc-textpic-lastcol" style="width:970px;"><img src="fileadmin/_processed_/csm_bordfodbold_01_dd63e14cf3.jpg" width="970" height="291"   alt=""  border="0" /></li></ul></div><div class="csc-textpic-imagerow" style="width:970px;"><ul><li class="csc-textpic-image csc-textpic-firstcol csc-textpic-lastcol" style="width:970px;"><img src="fileadmin/_processed_/csm_elevBagfokus_290f5c9dc2.jpg" width="970" height="291"   alt=""  border="0" /></li></ul></div><div class="csc-textpic-imagerow" style="width:970px;"><ul><li class="csc-textpic-image csc-textpic-firstcol csc-textpic-lastcol" style="width:970px;"><img src="fileadmin/_processed_/csm_lokale_86781c59a0.jpg" width="970" height="291"   alt=""  border="0" /></li></ul></div><div class="csc-textpic-imagerow" style="width:970px;"><ul><li class="csc-textpic-image csc-textpic-firstcol csc-textpic-lastcol" style="width:970px;"><img src="fileadmin/_processed_/csm_spise_01_d56d4cbcd1.jpg" width="970" height="291"   alt=""  border="0" /></li></ul></div><div class="csc-textpic-imagerow" style="width:970px;"><ul><li class="csc-textpic-image csc-textpic-firstcol csc-textpic-lastcol" style="width:970px;"><img src="fileadmin/_processed_/csm_uve_1c345988a8.jpg" width="970" height="291"   alt=""  border="0" /></li></ul></div><div class="csc-textpic-imagerow" style="width:970px;"><ul><li class="csc-textpic-image csc-textpic-firstcol csc-textpic-lastcol" style="width:970px;"><img src="fileadmin/_processed_/csm_elevVpc_986cc37c46.jpg" width="970" height="291"   alt=""  border="0" /></li></ul></div><div class="csc-textpic-imagerow" style="width:970px;"><ul><li class="csc-textpic-image csc-textpic-firstcol csc-textpic-lastcol" style="width:970px;"><img src="fileadmin/_processed_/csm_bordtennis_01_f06bdebf5f.jpg" width="970" height="291"   alt=""  border="0" /></li></ul></div><div class="csc-textpic-imagerow csc-textpic-imagerow-last" style="width:970px;"><ul><li class="csc-textpic-image csc-textpic-firstcol csc-textpic-lastcol" style="width:970px;"><img src="fileadmin/_processed_/csm_infomoede_02_4027e91090.jpg" width="970" height="291"   alt=""  border="0" /></li></ul></div></div></div><div class="csc-textpic-clear"><!-- --></div></div></div>
+	<div id="colNormal" class="front"><div id="c950" class="csc-default" ><div class="csc-textpic-text"><table class="contenttable"><tbody><tr><td></td><td abbr="" class="align-left align-center"><p class="align-left">Se</p><p class="align-left">Faldskærmsudspring</p><p class="align-left">fra AspITs 10 års</p><p class="align-left">JUBILÆUM&nbsp;</p><p class="align-left"><a href="https://youtu.be/Q8VFm_agtdw" title="Opens external link in new window" target="_blank" class="external-link-new-window">her</a>.</p></td><td><h1 style="TEXT-ALIGN: center">Velkommen til AspIT<br />fokuseret IT-talent til dansk erhvervsliv</h1></td><td><p class="align-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://www.linkedin.com/company/3105512?trk=tyah&amp;trkInfo=tarId%3A1415207584222%2Ctas%3Aaspit%2Cidx%3A2-1-6" title="Gå til LinkedIn" target="_blank" class="external-link-new-window"><img src="fileadmin/_migrated/RTE/RTEmagicC_linkedin-logo_01.png.png" height="80" width="80" alt="" /><br /><br /></a></p></td></tr></tbody></table><p class="align-center">AspIT&nbsp;- en IT uddannelse til unge med Autisme Spektrum Forstyrrelse (ASF).</p>
+<h3 class="align-center">&nbsp;</h3></div></div></div>
+	<div id="boxes-left" class="front"><div class="box"><div class="csc-textpic csc-textpic-center csc-textpic-above csc-textpic-equalheight"><div class="csc-textpic-imagewrap csc-textpic-single-image" style="width:310px;"><img src="fileadmin/_migrated/pics/sideelm_AspITpris.jpg" width="310" height="150"   alt=""  border="0" /></div><div class="csc-textpic-text"><h1>Nyheder</h1>
+<p class="bodytext">Tilmeld dig vores nyhedsbrev eller læs de seneste nyheder om&nbsp;innovationsprisen i&nbsp;nyhedsarkivet.&nbsp;&nbsp;<a href="http://www.aspit.dk/nyhedsbreve/anerkendelse-fra-toppen-af-erhvervslivet/" target="_blank" class="external-link-new-window">Læs mere</a></p></div></div><div class="csc-textpic-clear"><!-- --></div></div></div>
+	<div id="boxes-normal" class="front"><div class="box"><div class="csc-textpic csc-textpic-center csc-textpic-above"><div class="csc-textpic-imagewrap csc-textpic-single-image" style="width:307px;"><img src="fileadmin/_migrated/pics/Sideelement_1elev.jpg" width="307" height="147"   alt=""  border="0" /></div><div class="csc-textpic-text"><h1>Afklaringsforløb</h1>
+<p class="bodytext">Alle AspIT skolerne afholder én gang i hvert semester et afklaringsforløb. Afklaringsforløbet afholdes. <a href="uddannelsen/afklaringsforloeb/" title="Læs mere om AspITs Afklaringsforløb her..." target="_top" class="internal-link">Læs mere</a></p></div></div><div class="csc-textpic-clear"><!-- --></div></div></div>
+	<div id="boxes-right" class="front"><div class="box"><div class="csc-textpic csc-textpic-center csc-textpic-above"><div class="csc-textpic-imagewrap csc-textpic-single-image" style="width:307px;"><img src="fileadmin/_migrated/pics/jonasEG_01.jpg" width="307" height="152"   alt=""  border="0" /></div><div class="csc-textpic-text"><h1>AspIT Video</h1>
+<p class="bodytext">Jonas&nbsp;er i dag i job ved EG Neoprocess. Han er blevet en fast del af teamet og en respekteret kollega.&nbsp;<a href="om-aspit/materiale/aspit-media/aspit-videoer-dk/" title="Gå til AspiTs video arkiv" target="_top" class="internal-link">Læs mere</a></p></div></div><div class="csc-textpic-clear"><!-- --></div></div></div>
+	<div id="footer-wrap"><!--###footer-wrap### begin -->
+		<div id="footer"></div>
+		<div id="credits"></div>
+	<!--###footer-wrap### end --></div>
+</div>
+	<!-- TYPO3SEARCH_end -->
+<!--###wrap### end --></div>
+<script type="text/javascript">
+/*<![CDATA[*/
+var _gaq = _gaq; if (typeof(_gaq)=="undefined"){ _gaq=[]; }
+_gaq.push(['_setAccount', 'UA-39056040-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+/*]]>*/
+</script>
+
+
+
+
+</body>
+</html>

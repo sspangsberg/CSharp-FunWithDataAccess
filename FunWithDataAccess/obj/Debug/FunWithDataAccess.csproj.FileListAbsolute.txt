@@ -1,0 +1,21 @@
+C:\Users\Bruger\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\bin\Debug\FunWithDataAccess.exe.config
+C:\Users\Bruger\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\obj\Debug\FunWithDataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Bruger\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\bin\Debug\FunWithDataAccess.exe
+C:\Users\Bruger\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\bin\Debug\FunWithDataAccess.pdb
+C:\Users\Bruger\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\obj\Debug\FunWithDataAccess.exe
+C:\Users\Bruger\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\obj\Debug\FunWithDataAccess.pdb
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\bin\Debug\FunWithDataAccess.exe.config
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\obj\Debug\FunWithDataAccess.exe
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\obj\Debug\FunWithDataAccess.pdb
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\obj\Debug\FunWithDataAccess.csprojResolveAssemblyReference.cache
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\bin\Debug\FunWithDataAccess.exe
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\FunWithDataAccess\FunWithDataAccess\bin\Debug\FunWithDataAccess.pdb
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\Projekter\FunWithDataAccess\FunWithDataAccess\bin\Debug\FunWithDataAccess.exe.config
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\Projekter\FunWithDataAccess\FunWithDataAccess\obj\Debug\FunWithDataAccess.exe
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\Projekter\FunWithDataAccess\FunWithDataAccess\obj\Debug\FunWithDataAccess.pdb
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\Projekter\FunWithDataAccess\FunWithDataAccess\bin\Debug\FunWithDataAccess.exe
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\Projekter\FunWithDataAccess\FunWithDataAccess\bin\Debug\FunWithDataAccess.pdb
+E:\Dropbox\Undervisning\Softwarekonstruktion\C#\Projekter\FunWithDataAccess\FunWithDataAccess\obj\Debug\FunWithDataAccess.csprojResolveAssemblyReference.cache
+E:\Dropbox (Personlig)\Undervisning\Softwarekonstruktion\C#\Projekter\FunWithDataAccess\FunWithDataAccess\bin\Debug\FunWithDataAccess.exe.config
+E:\Dropbox (Personlig)\Undervisning\Softwarekonstruktion\C#\Projekter\FunWithDataAccess\FunWithDataAccess\obj\Debug\FunWithDataAccess.exe
+E:\Dropbox (Personlig)\Undervisning\Softwarekonstruktion\C#\Projekter\FunWithDataAccess\FunWithDataAccess\obj\Debug\FunWithDataAccess.pdb
